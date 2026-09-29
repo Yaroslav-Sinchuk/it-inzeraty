@@ -1,0 +1,7 @@
+# Zakázať prístup k .gitignore
+Options -Indexes
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    RewriteRule ^\.gitignore$ - [F,L]  
+</IfModule>
