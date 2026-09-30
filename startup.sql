@@ -30,12 +30,9 @@ CREATE TABLE inzerat
 );
 GO
 
--- tento inzerat je len vymysleny priklad, dalej by sme mali pridavat realne (napr. z profesia.sk)
 INSERT INTO inzerat VALUES
-(1, N'Java Developer with React', N'SourceFirst International s.r.o.', N'Košice', N'middle', 2500, 3000, N'Java, Maven', '22.9.2026', 0);
+(1, N'Java Developer with React', N'SourceFirst International s.r.o.', N'Košice', N'middle', 2500, 3000, N'Java, Maven, React', '2026-09-22', 0);
 GO
-
--- dalsie inzeraty
 
 SELECT * FROM inzerat;
 GO
