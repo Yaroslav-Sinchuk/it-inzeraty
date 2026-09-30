@@ -3,29 +3,82 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles/style.css">
   <title>IT inzeráty</title>
+  <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
-  <nav>
-    <ul>
-      <li><a href="#o-startupe">O startupe</a></li>
-      <li><a href="#skript">SQL skript</a></li>
-    </ul>
-  </nav>
+  <header class="top">
+    <div class="wrap top-inner">
+      <a href="#" class="logo">IT<span>inzeráty</span></a>
+      <nav>
+        <ul>
+          <li><a href="#ponuky">Ponuky</a></li>
+          <li><a href="#o-startupe">O startupe</a></li>
+          <li><a href="#skript">SQL skript</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
 
-  <main>
-    <h1>IT inzeráty</h1>
+  <section class="hero">
+    <div class="wrap">
+      <h1>IT práca na Slovensku na jednom mieste</h1>
+      <p>Pozície, firmy, platy a technológie. Pozri, čo sa hľadá a kde sa najviac platí.</p>
+      <div class="hero-buttons">
+        <a href="#ponuky" class="btn">Pozrieť ponuky</a>
+        <a href="startup.sql" download class="btn btn-outline">Stiahnuť SQL skript</a>
+      </div>
+      <div class="stats">
+        <div><strong id="stat-pocet">–</strong><span>inzerátov</span></div>
+        <div><strong id="stat-plat">–</strong><span>priemerný plat od</span></div>
+        <div><strong id="stat-remote">–</strong><span>remote ponúk</span></div>
+      </div>
+    </div>
+  </section>
+
+  <main class="wrap">
+    <section id="ponuky">
+      <h2>Ponuky</h2>
+      <div class="filters">
+        <input type="text" id="f-hladaj" placeholder="Hľadaj pozíciu alebo technológiu (napr. Python)">
+        <select id="f-mesto"><option value="">Všetky mestá</option></select>
+        <select id="f-seniorita"><option value="">Každá seniorita</option></select>
+        <label class="check"><input type="checkbox" id="f-remote"> len remote</label>
+      </div>
+      <div id="zoznam" class="cards"></div>
+      <p id="prazdne" class="empty" hidden>Žiadny inzerát nevyhovuje filtru.</p>
+    </section>
 
     <section id="o-startupe">
       <h2>O startupe</h2>
-      <p></p>
+      <p>
+        IT inzeráty je databáza IT pracovných ponúk na Slovensku. Evidujeme pozíciu, firmu, mesto,
+        senioritu, plat, technológie, dátum zverejnenia a či sa dá pracovať na diaľku.
+        Nad dátami sa dá analyzovať, ktoré technológie sú najžiadanejšie a aké sú platy podľa miest.
+      </p>
+      <p>Ponuky na tejto stránke sa načítavajú priamo zo súboru <code>startup.sql</code>.</p>
+      <h3>Tím</h3>
+      <ul class="team">
+        <li>Yaroslav Sinchuk</li>
+        <li>Oleksandr Skryhunets</li>
+        <li>Nikita Sheremet Reis</li>
+        <li>Alexej Derfiňák</li>
+      </ul>
+      <h3>DBMS</h3>
+      <p>Microsoft SQL Server</p>
     </section>
 
     <section id="skript">
       <h2>SQL skript</h2>
-      <a href="startup.sql" download>Stiahnuť startup.sql</a>
+      <a href="startup.sql" download class="btn">Stiahnuť startup.sql</a>
+      <pre id="sql">Načítavam skript...</pre>
     </section>
   </main>
+
+  <footer>
+    <div class="wrap">© 2026 IT inzeráty · študentský projekt, Databázové systémy, UPJŠ</div>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>

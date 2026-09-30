@@ -1,5 +1,133 @@
-ul{
-  list-style-type: none;
+:root {
+  --bg: #0f172a;
+  --panel: #1e293b;
+  --line: #334155;
+  --text: #e2e8f0;
+  --muted: #94a3b8;
+  --accent: #38bdf8;
+  --green: #4ade80;
+}
+
+* { box-sizing: border-box; }
+
+body {
   margin: 0;
-  padding: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+}
+
+a { color: var(--accent); text-decoration: none; }
+
+.wrap { max-width: 1100px; margin: 0 auto; padding: 0 16px; }
+
+/* hlavicka */
+.top {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(15, 23, 42, 0.9);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--line);
+}
+.top-inner { display: flex; align-items: center; justify-content: space-between; height: 60px; }
+.logo { font-weight: 800; font-size: 20px; color: var(--text); }
+.logo span { color: var(--accent); margin-left: 2px; }
+
+nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 20px; }
+nav a { color: var(--muted); }
+nav a:hover { color: var(--text); }
+
+/* hero */
+.hero { padding: 70px 0 50px; border-bottom: 1px solid var(--line); }
+.hero h1 { font-size: 40px; line-height: 1.15; margin: 0 0 12px; max-width: 700px; }
+.hero p { color: var(--muted); font-size: 18px; margin: 0 0 24px; max-width: 600px; }
+.hero-buttons { display: flex; gap: 12px; flex-wrap: wrap; }
+
+.btn {
+  display: inline-block;
+  padding: 10px 18px;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #0f172a;
+  font-weight: 600;
+}
+.btn:hover { opacity: 0.9; }
+.btn-outline { background: transparent; color: var(--accent); border: 1px solid var(--accent); }
+
+.stats { display: flex; gap: 40px; margin-top: 40px; flex-wrap: wrap; }
+.stats strong { display: block; font-size: 28px; }
+.stats span { color: var(--muted); font-size: 14px; }
+
+/* sekcie */
+main section { padding: 50px 0; border-bottom: 1px solid var(--line); }
+main section:last-child { border-bottom: none; }
+h2 { font-size: 28px; margin: 0 0 20px; }
+h3 { margin: 24px 0 8px; }
+
+/* filtre */
+.filters { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
+.filters input[type="text"], .filters select {
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 15px;
+}
+.filters input[type="text"] { flex: 1; min-width: 220px; }
+.check { display: flex; align-items: center; gap: 6px; color: var(--muted); }
+
+/* karticky */
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+.card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 18px;
+  transition: border-color 0.2s;
+}
+.card:hover { border-color: var(--accent); }
+.card-head { display: flex; justify-content: space-between; align-items: start; gap: 10px; }
+.card h3 { margin: 0; font-size: 18px; }
+.badge {
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(56, 189, 248, 0.15);
+  color: var(--accent);
+  white-space: nowrap;
+}
+.firma { color: var(--muted); margin: 6px 0; }
+.remote { color: var(--green); }
+.plat { font-weight: 700; font-size: 17px; margin: 8px 0; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag { font-size: 13px; padding: 2px 8px; border-radius: 6px; background: var(--line); }
+.datum { color: var(--muted); font-size: 13px; margin: 12px 0 0; }
+.empty { color: var(--muted); }
+
+/* tim */
+.team { list-style: none; padding: 0; margin: 0; }
+.team li { padding: 4px 0; }
+
+code { background: var(--panel); padding: 1px 6px; border-radius: 4px; }
+
+/* skript */
+pre {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 16px;
+  overflow-x: auto;
+  font-size: 14px;
+  margin-top: 16px;
+}
+
+footer { border-top: 1px solid var(--line); padding: 24px 0; color: var(--muted); font-size: 14px; }
+
+@media (max-width: 600px) {
+  .hero h1 { font-size: 30px; }
+  nav ul { gap: 12px; font-size: 14px; }
+  .stats { gap: 24px; }
 }
