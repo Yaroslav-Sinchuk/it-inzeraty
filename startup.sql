@@ -3,6 +3,9 @@
 
 USE master;
 GO
+-- odpojenie ostatnych pouzivatelov, aby sa dala databaza zmazat
+ALTER DATABASE it_inzeraty SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+GO
 DROP DATABASE IF EXISTS it_inzeraty;
 GO
 
@@ -29,7 +32,7 @@ GO
 
 -- tento inzerat je len vymysleny priklad, dalej by sme mali pridavat realne (napr. z profesia.sk)
 INSERT INTO inzerat VALUES
-(1, N'Junior Data Engineer', N'DataNest s.r.o.', N'Košice', N'junior', 1400, 1900, N'Python, SQL, Airflow', '2026-09-02', 0);
+(1, N'Java Developer with React', N'SourceFirst International s.r.o.', N'Košice', N'middle', 2500, 3000, N'Java, Maven', '22.9.2026', 0);
 GO
 
 -- dalsie inzeraty
