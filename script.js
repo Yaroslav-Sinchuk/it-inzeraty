@@ -1,4 +1,4 @@
-// nacita startup.sql, zobrazi ho a z INSERT-ov spravi karticky inzeratov
+// nacita DDL, DML a DQL skripty, zobrazi ich a z INSERT-ov v DML.sql spravi karticky inzeratov
 
 const stlpce = ['id', 'pozicia', 'firma', 'mesto', 'seniorita', 'plat_od', 'plat_do',
                 'technologie', 'datum_zverejnenia', 'remote'];
@@ -36,7 +36,7 @@ function nacitajInzeraty(sql) {
   // odstranenie komentarov
   const bezKomentarov = sql.replace(/--.*$/gm, '');
   const vysledok = [];
-  const bloky = bezKomentarov.match(/INSERT\s+INTO\s+inzerat\s+VALUES([\s\S]*?);/gi) || [];
+  const bloky = [...bezKomentarov.matchAll(/INSERT\s+INTO\s+inzerat\s*(?:\([^)]*\))?\s*VALUES([\s\S]*?);/gi)].map(m => m[1]);
   for (const blok of bloky) {
     const riadky = blok.match(/\((?:[^()']|'(?:[^']|'')*')*\)/g) || [];
     for (const r of riadky) {
@@ -114,20 +114,22 @@ function statistiky() {
   document.getElementById('stat-remote').textContent = inzeraty.filter(i => i.remote === 1).length;
 }
 
-fetch('startup.sql')
-  .then(r => r.text())
-  .then(sql => {
-    document.getElementById('sql').textContent = sql;
-    inzeraty = nacitajInzeraty(sql);
-    naplnSelect('f-mesto', inzeraty.map(i => i.mesto));
-    naplnSelect('f-seniorita', inzeraty.map(i => i.seniorita));
-    statistiky();
-    vykresli();
-  })
-  .catch(() => {
-    document.getElementById('sql').textContent = 'Skript sa nepodarilo načítať.';
-    document.getElementById('prazdne').hidden = false;
-  });
+function zobrazSkript(subor, id) {
+  return fetch(subor)
+    .then(r => { if (!r.ok) throw new Error(); return r.text(); })
+    .then(t => { document.getElementById(id).textContent = t; return t; })
+    .catch(() => { document.getElementById(id).textContent = 'Skript sa nepodarilo načítať.'; return ''; });
+}
+
+zobrazSkript('DDL.sql', 'sql-ddl');
+zobrazSkript('DQL.sql', 'sql-dql');
+zobrazSkript('DML.sql', 'sql-dml').then(sql => {
+  inzeraty = nacitajInzeraty(sql);
+  naplnSelect('f-mesto', inzeraty.map(i => i.mesto));
+  naplnSelect('f-seniorita', inzeraty.map(i => i.seniorita));
+  statistiky();
+  vykresli();
+});
 
 ['f-hladaj', 'f-mesto', 'f-seniorita', 'f-remote'].forEach(id =>
   document.getElementById(id).addEventListener('input', vykresli));

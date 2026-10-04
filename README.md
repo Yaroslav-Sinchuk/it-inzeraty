@@ -9,7 +9,9 @@ Databáza IT pracovných ponúk na Slovensku – pozície, firmy, platy a techno
 Microsoft SQL Server
 
 ## Súbory
-- `startup.sql` – vytvorenie databázy a tabuľky, vloženie dát
+- `DDL.sql` – vytvorenie databázy a tabuľky
+- `DML.sql` – vloženie dát
+- `DQL.sql` – dopyty (úlohy a riešenia)
 - `index.html` – stránka startupu
 
 ## Tím

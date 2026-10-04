@@ -14,7 +14,7 @@
         <ul>
           <li><a href="#ponuky">Ponuky</a></li>
           <li><a href="#o-startupe">O startupe</a></li>
-          <li><a href="#skript">SQL skript</a></li>
+          <li><a href="#skript">SQL skripty</a></li>
         </ul>
       </nav>
     </div>
@@ -26,7 +26,7 @@
       <p>Pozície, firmy, platy a technológie. Pozri, čo sa hľadá a kde sa najviac platí.</p>
       <div class="hero-buttons">
         <a href="#ponuky" class="btn">Pozrieť ponuky</a>
-        <a href="startup.sql" download class="btn btn-outline">Stiahnuť SQL skript</a>
+        <a href="#skript" class="btn btn-outline">SQL skripty</a>
       </div>
       <div class="stats">
         <div><strong id="stat-pocet">–</strong><span>inzerátov</span></div>
@@ -56,7 +56,7 @@
         senioritu, plat, technológie, dátum zverejnenia a či sa dá pracovať na diaľku.
         Nad dátami sa dá analyzovať, ktoré technológie sú najžiadanejšie a aké sú platy podľa miest.
       </p>
-      <p>Ponuky na tejto stránke sa načítavajú priamo zo súboru <code>startup.sql</code>.</p>
+      <p>Ponuky na tejto stránke sa načítavajú priamo zo súboru <code>DML.sql</code>.</p>
       <h3>Tím</h3>
       <ul class="team">
         <li>Yaroslav Sinchuk</li>
@@ -69,9 +69,20 @@
     </section>
 
     <section id="skript">
-      <h2>SQL skript</h2>
-      <a href="startup.sql" download class="btn">Stiahnuť startup.sql</a>
-      <pre id="sql">Načítavam skript...</pre>
+      <h2>SQL skripty</h2>
+      <p>Spúšťajte v poradí: DDL → DML → DQL.</p>
+
+      <h3>DDL.sql – vytvorenie databázy a tabuľky</h3>
+      <a href="DDL.sql" download class="btn">Stiahnuť DDL.sql</a>
+      <pre id="sql-ddl">Načítavam skript...</pre>
+
+      <h3>DML.sql – vloženie dát</h3>
+      <a href="DML.sql" download class="btn">Stiahnuť DML.sql</a>
+      <pre id="sql-dml">Načítavam skript...</pre>
+
+      <h3>DQL.sql – dopyty</h3>
+      <a href="DQL.sql" download class="btn">Stiahnuť DQL.sql</a>
+      <pre id="sql-dql">Načítavam skript...</pre>
     </section>
   </main>
 
