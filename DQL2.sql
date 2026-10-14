@@ -1,47 +1,30 @@
+-- IT inzeraty - DQL2 (funkcie a agregácia)
+-- MS SQL Server
+
 USE it_inzeraty;
 GO
 
--- =========================================================================
--- ČASŤ 1: 5 VLASTNÝCH ZADANÍ S VYUŽITÍM FUNKCIÍ V SELECT, WHERE A ORDER BY
--- =========================================================================
-
--- -------------------------------------------------------------------------
--- ÚLOHA 1: Formátovanie textu a výpočet dĺžky technológií
--- Zadanie: Zobrazte názov pozície veľkými písmenami, názov firmy a dĺžku (počet znakov) 
--- v stĺpci "technologie". Vyberte len ponuky z Košíc a výsledok usporiadajte 
--- podľa dĺžky technológií od najdlhšej.
--- -------------------------------------------------------------------------
+-- Úloha 1: Zobrazte pozíciu veľkými písmenami, firmu a dĺžku textu technológií
+-- pre inzeráty z Košíc. Zoraďte od najdlhšieho.
 SELECT UPPER(pozicia) AS pozicia_velkym, 
        firma, 
        LEN(technologie) AS dlzka_technologii           -- MariaDB/MySQL: CHAR_LENGTH(technologie) AS dlzka_technologii
 FROM inzerat
 WHERE mesto = N'Košice'
 ORDER BY LEN(technologie) DESC;                        -- MariaDB/MySQL: ORDER BY CHAR_LENGTH(technologie) DESC
-GO
 
-
--- -------------------------------------------------------------------------
--- ÚLOHA 2: Práca s dátumom a časom (Vek inzerátu v dňoch)
--- Zadanie: Zobrazte pozíciu, firmu, dátum zverejnenia a vypočítajte, pred koľkými 
--- dňami bol inzerát zverejnený vzhľadom na dnešný dátum. Zobrazte len inzeráty, 
--- ktoré nie sú staršie ako 10 dní, a zoraďte ich od najnovšieho.
--- -------------------------------------------------------------------------
+-- Úloha 2: Zobrazte pozíciu, firmu a koľko dní je inzerát zverejnený.
+-- Len inzeráty nie staršie ako 60 dní, od najnovšieho.
 SELECT pozicia, 
        firma, 
        datum_zverejnenia, 
        DATEDIFF(day, datum_zverejnenia, GETDATE()) AS vek_inzeratu_dni -- MariaDB/MySQL: DATEDIFF(NOW(), datum_zverejnenia)
 FROM inzerat
-WHERE DATEDIFF(day, datum_zverejnenia, GETDATE()) <= 10                 -- MariaDB/MySQL: WHERE DATEDIFF(NOW(), datum_zverejnenia) <= 10
+WHERE DATEDIFF(day, datum_zverejnenia, GETDATE()) <= 60                 -- MariaDB/MySQL: WHERE DATEDIFF(NOW(), datum_zverejnenia) <= 60
 ORDER BY datum_zverejnenia DESC;
-GO
 
--- -------------------------------------------------------------------------
--- ÚLOHA 3: Použitie podmienkovej logiky (CASE WHEN) v SELECT a WHERE
--- Zadanie: Zobrazte firmu, pozíciu a nový stĺpec "typ_prace", kde na základe 
--- stĺpca "remote" vypíšete text 'Home Office' (ak remote = 1) alebo 'On-site' (ak remote = 0).
--- Do výberu vezmite len tie ponuky, ktoré majú v názve pozície slovo 'Developer' 
--- a ponúkajú prácu na diaľku. Výsledok zoraďte podľa firmy.
--- -------------------------------------------------------------------------
+-- Úloha 3: Zobrazte firmu, pozíciu a typ práce ('Home Office' alebo 'On-site')
+-- pre pozície Developer. Zoraďte podľa firmy.
 SELECT firma, 
        pozicia, 
        CASE 
@@ -49,16 +32,11 @@ SELECT firma,
            ELSE 'On-site'
        END AS typ_prace
 FROM inzerat
-WHERE pozicia LIKE N'%Developer%' AND remote = 1
+WHERE pozicia LIKE N'%Developer%'
 ORDER BY firma ASC;
 
-
--- -------------------------------------------------------------------------
--- ÚLOHA 4: Matematické zaokrúhľovanie a úprava platu
--- Zadanie: Predpokladajme zavedenie novej dane, ktorá zníži hornú hranicu platu (plat_do) o 15%. 
--- Zobrazte pozíciu, pôvodný maximálny plat a stĺpec "cisty_plat_do", ktorý bude zaokrúhlený 
--- na 1 desatinné miesto. Filtrujte len senior pozície a zoraďte podľa výšky čistého platu.
--- -------------------------------------------------------------------------
+-- Úloha 4: Zobrazte pozíciu, plat_do a plat_do znížený o 15 % (zaokrúhlený)
+-- pre senior pozície. Zoraďte od najvyššieho.
 SELECT pozicia, 
        plat_do AS povodny_plat_max, 
        ROUND(plat_do * 0.85, 1) AS cisty_plat_do
@@ -66,40 +44,26 @@ FROM inzerat
 WHERE seniorita = N'senior'
 ORDER BY cisty_plat_do DESC;
 
-
--- -------------------------------------------------------------------------
--- ÚLOHA 5: Extrakcia časti dátumu (Mesiac zverejnenia inzerátu)
--- Zadanie: Zobrazte názov firmy, pozíciu a textový názov mesiaca, kedy bol inzerát 
--- zverejnený. Filtrujte len inzeráty, ktoré boli zverejnené v aktuálnom roku 
--- (dynamicky podľa dnešného roka) a usporiadajte ich podľa názvu pozície.
--- -------------------------------------------------------------------------
+-- Úloha 5: Zobrazte firmu, pozíciu a názov mesiaca zverejnenia
+-- pre inzeráty z tohto roka. Zoraďte podľa pozície.
 SELECT firma, 
        pozicia, 
        DATENAME(month, datum_zverejnenia) AS mesiac_zverejnenia -- MariaDB/MySQL: MONTHNAME(datum_zverejnenia)
 FROM inzerat
 WHERE YEAR(datum_zverejnenia) = YEAR(GETDATE())        -- MariaDB/MySQL: WHERE YEAR(datum_zverejnenia) = YEAR(NOW())
 ORDER BY pozicia ASC;
-GO
 
+-- Agregačné funkcie (GROUP BY, HAVING)
 
--- =========================================================================
--- ČASŤ 2: POKROČILÉ ZADANIE S AGREGAČNÝMI FUNKCIAMI, GROUP BY A HAVING
--- =========================================================================
-
--- -------------------------------------------------------------------------
--- ÚLOHA 6: Štatistika platov podľa miest s podmienkou na priemer
--- Zadanie: Pre každé mesto vypočítajte celkový počet aktívnych IT inzerátov, 
--- minimálny plat (z plat_od) a priemerný maximálny plat (z plat_do) zaokrúhlený na celé eurá.
--- Do analýzy započítajte len ponuky od stredne pokročilých a skúsených špecialistov (middle, senior).
--- Výsledky zoskupte podľa miest, ale zobrazte iba tie mestá, kde je priemerný maximálny plat 
--- vyšší ako 2500 EUR. Výslednú tabuľku zoraďte podľa počtu inzerátov od najväčšieho.
--- -------------------------------------------------------------------------
+-- Úloha 6: Pre každé mesto zobrazte počet inzerátov, minimálny plat_od
+-- a priemerný plat_do (len middle a senior). Len mestá s priemerom nad 3500 €.
+-- Zoraďte podľa počtu inzerátov.
 SELECT mesto, 
        COUNT(*) AS pocet_inzeratov, 
        MIN(plat_od) AS minimalny_nastupny_plat, 
-       ROUND(AVG(plat_do), 0) AS priemerny_maximalny_plat
+       CAST(ROUND(AVG(plat_do), 0) AS INT) AS priemerny_maximalny_plat
 FROM inzerat
 WHERE seniorita IN (N'middle', N'senior')
 GROUP BY mesto
-HAVING AVG(plat_do) > 2500.00
+HAVING AVG(plat_do) > 3500.00
 ORDER BY pocet_inzeratov DESC;
