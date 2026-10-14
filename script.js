@@ -114,10 +114,30 @@ function statistiky() {
   document.getElementById('stat-remote').textContent = inzeraty.filter(i => i.remote === 1).length;
 }
 
+// dlhe skripty sa zobrazia len ciastocne, zvysok sa da rozbalit tlacidlom
+function pridajRozbalenie(id) {
+  const pre = document.getElementById(id);
+  if (pre.scrollHeight <= 260) return;
+  const box = document.createElement('div');
+  box.className = 'skript-box';
+  pre.parentNode.insertBefore(box, pre);
+  box.appendChild(pre);
+  pre.classList.add('zbalene');
+  const btn = document.createElement('button');
+  btn.className = 'rozbalit';
+  btn.textContent = 'Zobraziť celý skript ▾';
+  btn.addEventListener('click', () => {
+    const zbalene = pre.classList.toggle('zbalene');
+    btn.textContent = zbalene ? 'Zobraziť celý skript ▾' : 'Skryť ▴';
+    if (zbalene) box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+  box.after(btn);
+}
+
 function zobrazSkript(subor, id) {
   return fetch(subor)
     .then(r => { if (!r.ok) throw new Error(); return r.text(); })
-    .then(t => { document.getElementById(id).textContent = t; return t; })
+    .then(t => { document.getElementById(id).textContent = t; pridajRozbalenie(id); return t; })
     .catch(() => { document.getElementById(id).textContent = 'Skript sa nepodarilo načítať.'; return ''; });
 }
 
