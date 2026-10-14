@@ -124,6 +124,35 @@ pre {
   margin-top: 16px;
 }
 
+/* zbalene skripty */
+.skript-box { position: relative; }
+.skript-box pre { margin-bottom: 0; }
+.skript-box pre.zbalene {
+  max-height: 220px;
+  overflow: hidden;
+}
+.skript-box pre.zbalene::after {
+  content: "";
+  position: absolute;
+  left: 1px; right: 1px; bottom: 1px;
+  height: 80px;
+  border-radius: 0 0 8px 8px;
+  background: linear-gradient(to bottom, rgba(30, 41, 59, 0), var(--panel));
+  pointer-events: none;
+}
+.rozbalit {
+  margin-top: 8px;
+  background: none;
+  border: 1px solid var(--line);
+  color: var(--accent);
+  border-radius: 8px;
+  padding: 6px 14px;
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+.rozbalit:hover { border-color: var(--accent); }
+
 footer { border-top: 1px solid var(--line); padding: 24px 0; color: var(--muted); font-size: 14px; }
 
 @media (max-width: 600px) {
