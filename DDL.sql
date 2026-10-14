@@ -17,7 +17,7 @@ GO
 
 CREATE TABLE inzerat
 (
-   id INT,
+   id INT PRIMARY KEY,
    pozicia NVARCHAR(100),
    firma NVARCHAR(100),
    mesto NVARCHAR(50),

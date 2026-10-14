@@ -12,6 +12,7 @@ Microsoft SQL Server
 - `DDL.sql` – vytvorenie databázy a tabuľky
 - `DML.sql` – vloženie dát
 - `DQL.sql` – dopyty (úlohy a riešenia)
+- `DQL2.sql` – funkcie a agregácia (úlohy a riešenia)
 - `index.html` – stránka startupu
 
 ## Tím
