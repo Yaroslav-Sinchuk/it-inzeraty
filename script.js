@@ -1,4 +1,4 @@
-// nacita DDL, DML, DQL a DQL2 skripty, zobrazi ich a z INSERT-ov v DML.sql spravi karticky inzeratov
+// nacita SQL skripty, zobrazi ich a z INSERT-ov v DML.sql spravi karticky inzeratov
 
 const stlpce = ['id', 'pozicia', 'firma', 'mesto', 'seniorita', 'plat_od', 'plat_do',
                 'technologie', 'datum_zverejnenia', 'remote'];
@@ -142,8 +142,11 @@ function zobrazSkript(subor, id) {
 }
 
 zobrazSkript('DDL.sql', 'sql-ddl');
+zobrazSkript('DDL3.sql', 'sql-ddl3');
 zobrazSkript('DQL.sql', 'sql-dql');
 zobrazSkript('DQL2.sql', 'sql-dql2');
+zobrazSkript('DQL3.sql', 'sql-dql3');
+zobrazSkript('DML3.sql', 'sql-dml3');
 zobrazSkript('DML.sql', 'sql-dml').then(sql => {
   inzeraty = nacitajInzeraty(sql);
   naplnSelect('f-mesto', inzeraty.map(i => i.mesto));
