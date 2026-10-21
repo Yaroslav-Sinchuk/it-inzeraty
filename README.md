@@ -18,7 +18,7 @@ Microsoft SQL Server
 - `DQL3.sql` – prepájanie tabuliek (úlohy a riešenia)
 - `index.html` – stránka startupu
 
-Skripty spúšťajte v poradí: `DDL.sql`, `DML.sql`, `DDL3.sql`, `DML3.sql`.
+Skripty spúšťajte v poradí: `DDL.sql`, `DML.sql`, `DDL3.sql`, `DML3.sql`, potom `DQL.sql`, `DQL2.sql`, `DQL3.sql`.
 
 ## Tím
 - Yaroslav Sinchuk

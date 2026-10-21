@@ -24,7 +24,7 @@ INSERT INTO technologia (id, nazov, kategoria) VALUES
 (17, N'AWS', N'Cloud'),
 (18, N'Django', N'Frameworky'),
 (19, N'Oracle', N'Databázy'),
-(20, N'Linux', N'Operacne systemy'),
+(20, N'Linux', N'Operačné systémy'),
 (21, N'Terraform', N'Infrastructure as Code');
 GO
 
@@ -41,10 +41,11 @@ GO
 
 INSERT INTO benefit (id, nazov) VALUES
 (1, N'Home office'),
-(2, N'Stravne'),
-(3, N'Rocny bonus'),
+(2, N'Stravné'),
+(3, N'Ročný bonus'),
 (4, N'Vzdelávanie'),
-(5, N'Dodatocna dovolenka');
+(5, N'Dodatočná dovolenka'),
+(6, N'Multisport karta');
 GO
 
 INSERT INTO inzerat_benefit (inzerat_id, benefit_id) VALUES
