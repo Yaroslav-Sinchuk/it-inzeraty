@@ -9,7 +9,7 @@
 <body>
   <header class="top">
     <div class="wrap top-inner">
-      <a href="#" class="logo">IT<span>inzeráty</span></a>
+      <a href="#" class="logo">IT inzeráty</a>
       <nav>
         <ul>
           <li><a href="#ponuky">Ponuky</a></li>
@@ -21,23 +21,13 @@
     </div>
   </header>
 
-  <section class="hero">
-    <div class="wrap">
-      <h1>IT práca na Slovensku na jednom mieste</h1>
-      <p>Pozície, firmy, platy a technológie. Pozri, čo sa hľadá a kde sa najviac platí.</p>
-      <div class="hero-buttons">
-        <a href="#ponuky" class="btn">Pozrieť ponuky</a>
-        <a href="#skript" class="btn btn-outline">SQL skripty</a>
-      </div>
-      <div class="stats">
-        <div><strong id="stat-pocet">–</strong><span>inzerátov</span></div>
-        <div><strong id="stat-plat">–</strong><span>priemerný plat od</span></div>
-        <div><strong id="stat-remote">–</strong><span>remote ponúk</span></div>
-      </div>
-    </div>
-  </section>
-
   <main class="wrap">
+    <section id="uvod">
+      <h1>IT inzeráty</h1>
+      <p>Databáza IT pracovných ponúk na Slovensku. Projekt na predmet Databázové systémy, UPJŠ.</p>
+      <p class="info">V databáze je <b id="stat-pocet">–</b> inzerátov, z toho <b id="stat-remote">–</b> remote. Priemerný plat od: <b id="stat-plat">–</b>.</p>
+    </section>
+
     <section id="ponuky">
       <h2>Ponuky</h2>
       <div class="filters">
@@ -46,7 +36,14 @@
         <select id="f-seniorita"><option value="">Každá seniorita</option></select>
         <label class="check"><input type="checkbox" id="f-remote"> len remote</label>
       </div>
-      <div id="zoznam" class="cards"></div>
+      <div class="tab-wrap">
+        <table>
+          <thead>
+            <tr><th>Pozícia</th><th>Firma</th><th>Mesto</th><th>Seniorita</th><th>Plat (€)</th><th>Technológie</th><th>Zverejnené</th></tr>
+          </thead>
+          <tbody id="zoznam"></tbody>
+        </table>
+      </div>
       <p id="prazdne" class="empty" hidden>Žiadny inzerát nevyhovuje filtru.</p>
     </section>
 
@@ -105,7 +102,7 @@
     <section id="erd">
       <h2>ER diagram</h2>
       <a href="erd.png" download class="btn">Stiahnuť ER diagram</a>
-      <p><a href="erd.png" target="_blank"><img src="erd.png" alt="ER diagram databázy" style="max-width:100%;height:auto;border:1px solid #ddd;border-radius:8px;margin-top:12px"></a></p>
+      <p><a href="erd.png" target="_blank"><img src="erd.png" alt="ER diagram databázy"></a></p>
     </section>
   </main>
 

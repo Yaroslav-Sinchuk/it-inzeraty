@@ -77,21 +77,17 @@ function vykresli() {
   const zoznam = document.getElementById('zoznam');
   zoznam.innerHTML = '';
   for (const i of filtrovane) {
-    const karta = document.createElement('article');
-    karta.className = 'card';
-    const tagy = (i.technologie || '').split(',').map(t => t.trim()).filter(Boolean)
-      .map(t => `<span class="tag">${t}</span>`).join('');
-    karta.innerHTML = `
-      <div class="card-head">
-        <h3>${i.pozicia}</h3>
-        <span class="badge">${i.seniorita || ''}</span>
-      </div>
-      <p class="firma">${i.firma} · ${i.mesto}${i.remote === 1 ? ' · <span class="remote">remote</span>' : ''}</p>
-      <p class="plat">${formatEur(i.plat_od)} – ${formatEur(i.plat_do)}</p>
-      <div class="tags">${tagy}</div>
-      <p class="datum">zverejnené ${formatDatum(i.datum_zverejnenia)}</p>
+    const riadok = document.createElement('tr');
+    riadok.innerHTML = `
+      <td>${i.pozicia}${i.remote === 1 ? ' <span class="remote">(remote)</span>' : ''}</td>
+      <td>${i.firma}</td>
+      <td>${i.mesto}</td>
+      <td>${i.seniorita || ''}</td>
+      <td class="cislo">${formatEur(i.plat_od).replace(' €', '')} – ${formatEur(i.plat_do).replace(' €', '')}</td>
+      <td class="tech">${i.technologie || ''}</td>
+      <td class="cislo">${formatDatum(i.datum_zverejnenia)}</td>
     `;
-    zoznam.appendChild(karta);
+    zoznam.appendChild(riadok);
   }
   document.getElementById('prazdne').hidden = filtrovane.length > 0;
 }
@@ -125,10 +121,10 @@ function pridajRozbalenie(id) {
   pre.classList.add('zbalene');
   const btn = document.createElement('button');
   btn.className = 'rozbalit';
-  btn.textContent = 'Zobraziť celý skript ▾';
+  btn.textContent = 'Zobraziť celý skript';
   btn.addEventListener('click', () => {
     const zbalene = pre.classList.toggle('zbalene');
-    btn.textContent = zbalene ? 'Zobraziť celý skript ▾' : 'Skryť ▴';
+    btn.textContent = zbalene ? 'Zobraziť celý skript' : 'Skryť';
     if (zbalene) box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   });
   box.after(btn);
